@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>House US</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="Styles/style_tgif.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <img src="Styles/tgif_logo.png" alt="tgif logo" id="tgif_logo">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li><a href="home-starter-page.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toogle" data-toggle="dropdown">Congress 113</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="senate-starter-page.html">Senate</a></li>
+                        <li><a href="#">House</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--Table container-->
+    <div class="container">
+        <h2>Congressmen</h2>
+        <p>The major power of the House is to pass federal legislation that affects the entire country, although its bills must also be passed by the Senate and further agreed to by the U.S. President before becoming law (unless both the House and Senate re-pass the legislation with a two-thirds majority in each chamber). The House has some exclusive powers: the power to initiate revenue bills, to impeach officials (impeached officials are subsequently tried in the Senate), and to elect the U.S. President in case there is no majority in the Electoral College.</p>
+        <p>Each U.S. state is represented in the House in proportion to its population as measured in the census, but every state is entitled to at least one representative. </p>
+        <div class="btn-group" data-toggle="buttons">
+            <label>
+                <input class="party-element" type="checkbox" name="party_filter1" value="R"> Republican
+            </label>
+            <label>
+                <input class="party-element" type="checkbox" name="party_filter2" value="D"> Democrat
+            </label>
+            <label>
+                <input class="party-element" type="checkbox" name="party_filter3" value="I"> Independent
+            </label>
+        </div>
+        <!--  <div class="dropdown">
+  <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    State
+    <span class="caret"></span>
+  </button>
+  <ul id="state-filter" class="dropdown-menu" aria-labelledby="dLabel">
+    <li>Select</li>
+
+  </ul>
+</div> -->
+        <select id="state-filter" class="selectpicker"></select>
+        <div>
+            <table class="table table-hover" id="house-data">
+            </table>
+        </div>
+        <script src="NYT113_House.js"></script>
+        <script>
+        var members = data.results[0].members;
+        var houseTable = '';
+
+
+        houseTable += '<tr>';
+        houseTable += '<th>' + "Name" + '</th>';
+        houseTable += '<th>' + "Party" + '</th>';
+        houseTable += '<th>' + "State" + '</th>';
+        houseTable += '<th>' + "Seniority" + '</th>';
+        houseTable += '<th>' + "Vote Total" + '</th>';
+        houseTable += '</tr>';
+
+        for (var i = 0; i < members.length; i++) {
+            var dir = members[i];
+            var names = dir.first_name + ' ' + (dir.middle_name || "") + ' ' + dir.last_name;
+
+            houseTable += '<tr class="' + dir.party + '">';
+
+            houseTable += '<td>' + '<a href=  "' + dir.url + '" target = _blank >' + names + '</a>' + '</td>';
+            houseTable += '<td>' + dir.party + '</td>';
+            houseTable += '<td>' + dir.state + '</td>';
+            houseTable += '<td>' + dir.seniority + '</td>';
+            houseTable += '<td>' + dir.votes_with_party_pct + '%' + '</td>';
+
+
+            houseTable += '</tr>';;
+
+            document.getElementById("house-data").innerHTML = houseTable;
+        }
+
+
+        var FilterStates = [];
+
+        for (var i = 0; i < members.length; i++) {
+            var dir = members[i];
+
+            if ($.inArray(dir.state, FilterStates) == -1) {
+                FilterStates.push(dir.state)
+            }
+
+
+        }
+
+        FilterStates = FilterStates.sort();
+        var select = $('#state-filter');
+
+        select.append('<option value="all">State</option>');
+
+        for (var i = 0; i < FilterStates.length; i++) {
+            var state = FilterStates[i];
+
+            select.append('<option class="state-option" value="' + state + '">' + state + '</option>');
+
+        }
+
+
+
+        $(".party-element").click(function() {
+
+            var filterIsActive = false;
+
+
+            $('input.party-element').each(function() {
+                if ($(this).is(':checked')) {
+                    $('tr.' + $(this).val()).show()
+
+
+
+                    filterIsActive = true;
+
+                } else {
+                    $('tr.' + $(this).val()).hide()
+                }
+            });
+            if (!filterIsActive) {
+                $('tr').show()
+            }
+
+
+        });
+
+
+        $("#state-filter").change(function() {
+
+
+            var filterIsActive = false;
+
+            var currentState = $(this).val();
+
+            console.log(currentState)
+
+            if (currentState == "all") {
+                $('tr').show()
+            } else {
+                $('tr').each(function(i, element) {
+
+                    if ($(element).find('td:contains("' + currentState + '")').length > 0) {
+                        $(element).show();
+                    } else {
+                        $(element).hide();
+                    }
+                })
+            }
+
+
+
+        });
+        </script>
+    </div>
+</body>
+
+</html>
