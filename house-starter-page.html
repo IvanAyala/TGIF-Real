@@ -64,13 +64,13 @@
         var houseTable = '';
 
 
-        houseTable += '<tr>';
+        houseTable += '<thead><tr>';
         houseTable += '<th>' + "Name" + '</th>';
         houseTable += '<th>' + "Party" + '</th>';
         houseTable += '<th>' + "State" + '</th>';
         houseTable += '<th>' + "Seniority" + '</th>';
         houseTable += '<th>' + "Vote Total" + '</th>';
-        houseTable += '</tr>';
+        houseTable += '</tr> </thead><tbody>';
 
         for (var i = 0; i < members.length; i++) {
             var dir = members[i];
@@ -87,8 +87,10 @@
 
             houseTable += '</tr>';;
 
-            document.getElementById("house-data").innerHTML = houseTable;
+
         }
+        houseTable += '</tbody>';
+        document.getElementById("house-data").innerHTML = houseTable;
 
 
         var FilterStates = [];
@@ -117,56 +119,76 @@
 
 
 
+        var currentFilter = {
+            state: "all",
+            parties: []
+        }
+
+
+
         $(".party-element").click(function() {
 
-            var filterIsActive = false;
-
+            currentFilter.parties = [];
 
             $('input.party-element').each(function() {
                 if ($(this).is(':checked')) {
-                    $('tr.' + $(this).val()).show()
-
-
-
-                    filterIsActive = true;
-
-                } else {
-                    $('tr.' + $(this).val()).hide()
+                    currentFilter.parties.push($(this).val())
                 }
             });
-            if (!filterIsActive) {
-                $('tr').show()
-            }
 
-
+            updateTable();
         });
 
 
         $("#state-filter").change(function() {
 
-
-            var filterIsActive = false;
-
-            var currentState = $(this).val();
-
-            console.log(currentState)
-
-            if (currentState == "all") {
-                $('tr').show()
-            } else {
-                $('tr').each(function(i, element) {
-
-                    if ($(element).find('td:contains("' + currentState + '")').length > 0) {
-                        $(element).show();
-                    } else {
-                        $(element).hide();
-                    }
-                })
-            }
-
-
+            currentFilter.state = $(this).val();
+            updateTable();
 
         });
+
+
+        function updateTable() {
+            console.log("Show update Table")
+            $('tbody tr').each(function(i, tr) {
+
+                var stateMatches = false;
+
+
+                if (currentFilter.state != "all") {
+
+                    if ($(tr).find('td:contains("' + currentFilter.state + '")').length > 0) {
+                        stateMatches = true;
+                    }
+
+                } else {
+                    stateMatches = true;
+                }
+
+
+                var partyMatches = false;
+
+                if (currentFilter.parties.length != 0) {
+                    $.each(currentFilter.parties, function(index, party) {
+                        if ($(tr).hasClass(party)) {
+                            partyMatches = true;
+                        }
+
+                    });
+                } else {
+                    partyMatches = true;
+                }
+
+
+                if (partyMatches && stateMatches) {
+                    $(tr).show()
+                } else {
+                    $(tr).hide()
+                }
+
+            })
+
+        }
         </script>
     </div>
 </body>
