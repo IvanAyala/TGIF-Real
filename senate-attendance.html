@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    <title>Senate Attendance</title>
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="Styles/style_tgif.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
     </head>
     
-    <body>
+    <body class="senate attendance">
          <img src="Styles/tgif_logo.png" alt="tgif logo" id="tgif_logo">
     <nav class="navbar navbar-default">
         <div class="container">
@@ -98,36 +100,7 @@
                     </tr>
                 </thead>
                 <tbody id="leastEngagedTable">
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
+    
                 </tbody>
             </table>
             </div>
@@ -143,48 +116,39 @@
                     </tr>
                 </thead>
                 <tbody id="veryEngagedTable">
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
+                    
                 </tbody>
             </table>
             </div>
 
     	</div>    
 
-        <script src="NYT113_Senate.js"></script>
+        <!-- <script src="NYT113_Senate.js"></script> -->
 <script src="statistics.js"></script>
+<script type="text/html" id="mostEngagedTpl">
+    
+{{#mostEngaged}}
+        <tr>
+            <td>{{first_name}} {{last_name}}</td>
+            <td>{{missed_votes}}</td>
+            <td>{{missed_votes_pct}}</td>
+        </tr>
+        {{/mostEngaged}}
+    
+</script>
+
+<script type="text/html" id="leastEngagedTpl">
+    
+{{#leastEngaged}}
+        <tr>
+            <td>{{first_name}} {{last_name}}</td>
+            <td>{{missed_votes}}</td>
+            <td>{{missed_votes_pct}}</td>
+        </tr>
+        {{/leastEngaged}}
+    
+</script>
+
+
 </body>
 </html>

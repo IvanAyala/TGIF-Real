@@ -38,8 +38,10 @@ function getMostLoyalPartyMembers(percentage, members) {
     return getPercentageOfMembers(percentage, members);
 }
 
+//
+
 function getPercentageOfMembers(percentage, partyMembers) {
-    var partyMembersNeeded = Math.ceil(partyMembers.length * percentage)
+    var partyMembersNeeded = Math.ceil(partyMembers.length * percentage)//percentage here is defined when calling the function
     var selectedPartyMembers = []
     var i = 0;
     while (selectedPartyMembers.length < partyMembersNeeded) {
@@ -54,6 +56,6 @@ function getPercentageOfMembers(percentage, partyMembers) {
 
 var mostLoyal = getMostLoyalPartyMembers(0.1, members);
 var leastLoyal = getLeastLoyalPartyMembers(0.1, members);
-Add Comment Collapse
+
 
 

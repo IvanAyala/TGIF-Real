@@ -2,15 +2,17 @@
 <html lang="en">
 
 <head>
+    <title>Senate Loyalty</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="Styles/style_tgif.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
 </head>
 
-<body>
+<body class="senate loyalty">
     <img src="Styles/tgif_logo.png" alt="tgif logo" id="tgif_logo">
     <nav class="navbar navbar-default">
         <div class="container">
@@ -90,36 +92,7 @@
                 </tr>
             </thead>
             <tbody id="loyaltyTable">
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
+                
             </tbody>
         </table>
         </div>
@@ -134,48 +107,38 @@
                 </tr>
             </thead>
             <tbody id="plusLoyaltyTable">
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
+                
             </tbody>
         </table>
         </div>
     </div>
 
-<script src="NYT113_Senate.js"></script>
+<!-- <script src="NYT113_Senate.js"></script> -->
 <script src="statistics.js"></script>
+<script type="text/html" id="mostLoyalTpl">
+    
+{{#mostLoyal}}
+        <tr>
+            <td>{{first_name}} {{last_name}}</td>
+            <td>{{ownVotes}}</td>
+            <td>{{votes_with_party_pct}}</td>
+        </tr>
+        {{/mostLoyal}}
+    
+</script>
+
+<script type="text/html" id="leastLoyalTpl">
+    
+{{#leastLoyal}}
+        <tr>
+            <td>{{first_name}} {{last_name}}</td>
+            <td>{{ownVotes}}</td>
+            <td>{{votes_with_party_pct}}</td>
+        </tr>
+        {{/leastLoyal}}
+    
+</script>
+
 </body>
 
 </html>

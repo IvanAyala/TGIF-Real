@@ -20,8 +20,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toogle" data-toggle="dropdown">Congress 113</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Senate</a></li>
-                        <li><a href="house-starter-page.html">House</a></li>
+                        <li><a href="senate-starter-page.html">Senate</a></li>
+                        <li><a href="#">House</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -71,140 +71,52 @@
         <select id="state-filter" class="selectpicker"></select>
         <div>
             <table class="table table-hover" id="house-data">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Party</th>
+                <th>State</th>
+                <th>Seniority</th>
+                <th>Votes on Party</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
             </table>
         </div>
-        <script src="NYT113_House.js"></script>
-        <script>
-        var members = data.results[0].members;
-        var houseTable = '';
+        <!-- <script src="NYT113_House.js"></script> -->
+        <script src="house-starter-script.js"></script>
+         <script src="statistics.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
+        <script type="text/html" id="houseTableTemplate">
+    {{#members}}
+        <tr class="{{party}}">
+                <td>{{first_name}} {{last_name}}</td> 
+                <td>{{party}}</td>
+                <td>{{state}}</td>
+                <td>{{seniority}}</td>
+                <td>{{votes_with_party_pct}}</td>
+            </tr>
+            {{/members}}
+    
 
+    </script>
+    <script type="text/javascript">
+        
+        var test = 0;
+        $.getJSON('https://nytimes-ubiqum.herokuapp.com/congress/113/house', function(data) {
 
-        houseTable += '<thead><tr>';
-        houseTable += '<th>' + "Name" + '</th>';
-        houseTable += '<th>' + "Party" + '</th>';
-        houseTable += '<th>' + "State" + '</th>';
-        houseTable += '<th>' + "Seniority" + '</th>';
-        houseTable += '<th>' + "Vote Total" + '</th>';
-        houseTable += '</tr> </thead><tbody>';
+            console.log(data);
 
-        for (var i = 0; i < members.length; i++) {
-            var dir = members[i];
-            var names = dir.first_name + ' ' + (dir.middle_name || "") + ' ' + dir.last_name;
-
-            houseTable += '<tr class="' + dir.party + '">';
-
-            houseTable += '<td>' + '<a href=  "' + dir.url + '" target = _blank >' + names + '</a>' + '</td>';
-            houseTable += '<td>' + dir.party + '</td>';
-            houseTable += '<td>' + dir.state + '</td>';
-            houseTable += '<td>' + dir.seniority + '</td>';
-            houseTable += '<td>' + dir.votes_with_party_pct + '%' + '</td>';
-
-
-            houseTable += '</tr>';;
-
-
-        }
-        houseTable += '</tbody>';
-        document.getElementById("house-data").innerHTML = houseTable;
-
-
-        var FilterStates = [];
-
-        for (var i = 0; i < members.length; i++) {
-            var dir = members[i];
-
-            if ($.inArray(dir.state, FilterStates) == -1) {
-                FilterStates.push(dir.state)
-            }
-
-
-        }
-
-        FilterStates = FilterStates.sort();
-        var select = $('#state-filter');
-
-        select.append('<option value="all">State</option>');
-
-        for (var i = 0; i < FilterStates.length; i++) {
-            var state = FilterStates[i];
-
-            select.append('<option class="state-option" value="' + state + '">' + state + '</option>');
-
-        }
-
-
-
-        var currentFilter = {
-            state: "all",
-            parties: []
-        }
-
-
-
-        $(".party-element").click(function() {
-
-            currentFilter.parties = [];
-
-            $('input.party-element').each(function() {
-                if ($(this).is(':checked')) {
-                    currentFilter.parties.push($(this).val())
-                }
-            });
-
-            updateTable();
-        });
-
-
-        $("#state-filter").change(function() {
-
-            currentFilter.state = $(this).val();
-            updateTable();
+            test = data;
+            
+            var tpl = $('#houseTableTemplate').html();
+            var output = Mustache.render(tpl, data.results[0]);
+            $('#house-data tbody').html(output)
 
         });
 
-
-        function updateTable() {
-            console.log("Show update Table")
-            $('tbody tr').each(function(i, tr) {
-
-                var stateMatches = false;
-
-
-                if (currentFilter.state != "all") {
-
-                    if ($(tr).find('td:contains("' + currentFilter.state + '")').length > 0) {
-                        stateMatches = true;
-                    }
-
-                } else {
-                    stateMatches = true;
-                }
-
-
-                var partyMatches = false;
-
-                if (currentFilter.parties.length != 0) {
-                    $.each(currentFilter.parties, function(index, party) {
-                        if ($(tr).hasClass(party)) {
-                            partyMatches = true;
-                        }
-
-                    });
-                } else {
-                    partyMatches = true;
-                }
-
-
-                if (partyMatches && stateMatches) {
-                    $(tr).show()
-                } else {
-                    $(tr).hide()
-                }
-
-            })
-
-        }
-        </script>
+    </script>
+        
     </div>
 </body>
 

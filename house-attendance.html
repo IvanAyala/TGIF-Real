@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+    <title>House Attendance</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="Styles/style_tgif.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </head>
-    
-    <body>
-         <img src="Styles/tgif_logo.png" alt="tgif logo" id="tgif_logo">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
+</head>
+
+<body class="house attendance">
+    <img src="Styles/tgif_logo.png" alt="tgif logo" id="tgif_logo">
     <nav class="navbar navbar-default">
         <div class="container">
             <ul class="nav navbar-nav">
@@ -29,34 +32,29 @@
                         <li><a href="#">House</a></li>
                     </ul>
                 </li>
-                 <li class="dropdown">
+                <li class="dropdown">
                     <a href="#" class="dropdown-toogle" data-toggle="dropdown">Loyalty</a>
                     <ul class="dropdown-menu">
                         <li><a href="senate-loyalty.html">Senate</a></li>
                         <li><a href="house-loyalty.html">House</a></li>
                     </ul>
                 </li>
-
             </ul>
         </div>
-    </nav>   
-  
-
-        <header>            
-            <div>
-            </div>
-        </header>
-        <!--Table container-->
-        <div class="container">
+    </nav>
+    <header>
+        <div>
+        </div>
+    </header>
+    <!--Table container-->
+    <div class="container">
         <div class="col-md-6">
             <h2>Attendance</h2>
             <p>The Constitution specifies that a majority of members constitutes a quorum to do business in each house. Representatives and senators rarely force the presence of a quorum by demanding quorum calls; thus, in most cases, debates continue even if a majority is not present.</p>
-
             <p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
-    	   </div>
-           <div class="col-md-6"> 
-
-            <h2>Senate at a glance</h2>
+        </div>
+        <div class="col-md-6">
+            <h2>House at a glance</h2>
             <table class="table">
                 <thead>
                     <tr>
@@ -83,10 +81,10 @@
                     </tr>
                 </tbody>
             </table>
-            </div>
-            </div>
-            <div class="container">
-            <div class="col-md-6">
+        </div>
+    </div>
+    <div class="container">
+        <div class="col-md-6">
             <h2>Least Engaged (Bottom 10% Attendance)</h2>
             <table class="table">
                 <thead>
@@ -97,40 +95,10 @@
                     </tr>
                 </thead>
                 <tbody id="leastEngagedTable">
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
                 </tbody>
             </table>
-            </div>
-            <div class="col-md-6">
+        </div>
+        <div class="col-md-6">
             <h2>Most Engaged (Top 10% Attendance)</h2>
             <table class="table">
                 <thead>
@@ -141,47 +109,37 @@
                     </tr>
                 </thead>
                 <tbody id="veryEngagedTable">
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
                 </tbody>
             </table>
-            </div>
-            
-    	</div>    
-        <script src="NYT113_House.js"></script>
-<script src="statistics.js"></script>
+        </div>
+    </div>
+    <!-- <script src="NYT113_House.js"></script> -->
+    <script src="statistics.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
+    
+    <script type="text/html" id="mostEngagedTpl">
+        {{#mostEngaged}}
+        <tr>
+            <td>{{first_name}} {{last_name}}</td>
+            <td>{{missed_votes}}</td>
+            <td>{{missed_votes_pct}}</td>
+        </tr>
+        {{/mostEngaged}}
+    </script>
+   
+
+    <script type="text/html" id="leastEngagedTpl">
+        {{#leastEngaged}}
+        <tr>
+            <td>{{first_name}} {{last_name}}</td>
+            <td>{{missed_votes}}</td>
+            <td>{{missed_votes_pct}}</td>
+        </tr>
+        {{/leastEngaged}}
+    </script>
+    <script type="text/javascript">
+    $.getJSON('https://nytimes-ubiqum.herokuapp.com/congress/113/house', function(data) {});
+    </script>
 </body>
+
 </html>
